@@ -1,6 +1,6 @@
 # hzfapi
 
-
+sudo nohup npm run start >run.log 2>&1 & 
 
 ## QuickStart
 

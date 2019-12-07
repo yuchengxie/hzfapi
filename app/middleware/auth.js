@@ -6,8 +6,9 @@ module.exports = (options, app) => {
       url == "/v1/user/login" ||
       url == "/v1/user/logout" ||
       url == "/v1" ||
-      url == "/v1/user/register"||
-      url == "/v1/user/test"
+      url == "/v1/user/register" ||
+      url == "/v1/user/test" ||
+      url == "/v1/user/sendPhoneCode"
     ) {
       await next();
     } else {

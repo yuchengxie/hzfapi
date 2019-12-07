@@ -9,9 +9,9 @@
 
 module.exports = app => {
   const { router, controller } = app;
-  // var authMiddleware = app.middleware.tokenAuth({},app);
   
   router.get('/v1', controller.user.index);
+  router.post('/v1/user/sendPhoneCode',controller.user.sendPhoneCode);
   router.post('/v1/user/register',controller.user.register);
   router.post('/v1/user/login',controller.user.login);
   router.post('/v1/user/logout',controller.user.logout);

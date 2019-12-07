@@ -3,9 +3,42 @@
 const Controller = require("egg").Controller;
 
 class UserController extends Controller {
+  async sendPhoneCode() {
+    let data = this.ctx.request.body,
+      phone = data.phone;
+    if (!phone || !this.service.regular.checkPhone(phone)) {
+      this.ctx.body = {
+        result: {
+          success: false,
+          msg: "args invalid"
+        }
+      };
+      return;
+    }
+    var r = await this.service.message.sendPhoneVerifyCode(phone);
+    var success = false;
+    if (r.code && r.code == "000000") {
+      success = true;
+      this.ctx.session.phone_code = r.phone_code;
+    } else {
+      success = false;
+    }
+
+    this.ctx.body = {
+      result: {
+        success: success,
+        msg: r ? r : "err"
+      }
+    };
+  }
+
   async index() {
     this.ctx.body = {
-      result: "v1/api"
+      result: {
+        success: true,
+        msg: "/v1/app",
+        pc: this.ctx.session.phone_code
+      }
     };
   }
 
@@ -21,12 +54,15 @@ class UserController extends Controller {
   async register() {
     let data = this.ctx.request.body,
       phone = data.phone,
-      password = data.password;
+      password = data.password,
+      phone_code = data.phone_code;
     if (
       !phone ||
       !password ||
+      !phone_code ||
       !this.service.regular.checkPhone(phone) ||
-      !this.service.regular.checkPasswd(password)
+      !this.service.regular.checkPasswd(password) ||
+      !this.service.regular.checkPhoneCode(phone_code)
     ) {
       this.ctx.body = {
         result: {
@@ -37,6 +73,16 @@ class UserController extends Controller {
       return;
     }
     console.log(data);
+    //1.checkout phone code
+    if (phone_code != this.ctx.session.phone_code) {
+      this.ctx.body = {
+        result: {
+          success: false,
+          msg: "phone_code incorrect"
+        }
+      };
+      return;
+    }
     let res = await this.ctx.model.User.find({ phone: phone });
     if (res && res.length > 0) {
       this.ctx.body = {
@@ -47,8 +93,12 @@ class UserController extends Controller {
       };
       return;
     }
-    let user = new this.ctx.model.User({ phone, password:this.service.tools.md5(password) });
-    console.log('ready register:',user);
+    let user = new this.ctx.model.User({
+      phone,
+      password: this.service.tools.md5(password)
+    });
+    console.log("ready register:", user);
+
     await user.save();
     this.ctx.body = {
       result: {

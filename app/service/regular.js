@@ -3,10 +3,18 @@
 const Service = require("egg").Service;
 
 class RegularService extends Service {
-  
-  //校验手机
+  //校验手机号码
   checkPhone(s) {
     if (!/^1(3|4|5|6|7|8|9)\d{9}$/.test(s)) {
+      return false;
+    }
+    return true;
+  }
+
+  //校验手机短信验证码
+  checkPhoneCode(s) {
+    var reg=/^\d{6}$/;
+    if (!reg.test(s)) {
       return false;
     }
     return true;

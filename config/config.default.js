@@ -19,6 +19,14 @@ module.exports = appInfo => {
       hostname: "0.0.0.0"
     }
   };
+  
+  // config.session = {
+  //   key: "SESSION_ID",
+  //   maxAge: 864000 * 1000, //一天
+  //   httpOnly: true,
+  //   encrypt: true,
+  //   renew: true //  延长会话有效期
+  // };
 
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + "_1575595639228_3866";
@@ -61,8 +69,7 @@ module.exports = appInfo => {
   exports.mongoose = {
     client: {
       url: "mongodb://admin:qwerty123@118.190.105.235:27017/hzfds",
-      options: {
-      }
+      options: {}
     }
   };
 
