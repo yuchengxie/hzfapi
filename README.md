@@ -1,6 +1,7 @@
 # hzfapi
 # 标准
 sudo nohup npm run start >run.log 2>&1 & 
+sudo nohup npm run dev >run.log 2>&1 & 
 
 ## QuickStart
 
