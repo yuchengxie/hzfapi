@@ -36,7 +36,7 @@ class UserController extends Controller {
     this.ctx.body = {
       result: {
         success: true,
-        msg: "/v1/app",
+        msg: "/v1/app"
       }
     };
   }
@@ -71,6 +71,7 @@ class UserController extends Controller {
       };
       return;
     }
+    data.password=await this.service.tools.md5(data.password);
     console.log(data);
     //1.checkout phone code
     if (phone_code != this.ctx.session.phone_code) {
@@ -122,22 +123,47 @@ class UserController extends Controller {
 
   async login() {
     const { app } = this;
-    //登陆成功后
+    var data = this.ctx.request.body;
+    var phone = data.phone;
+    var password = await this.service.tools.md5(data.password);
+
+    if (!phone || !password) {
+      this.ctx.body = {
+        result: {
+          success: false,
+          msg: "args invalid"
+        }
+      };
+      return;
+    }
     //1.判断数据库是否存在用户
-    const data = this.ctx.request.body;
+    var user = await this.ctx.model.User.find({
+      phone: phone,
+      password: password
+    });
+    console.log('user:',user);
+    if (user.length <= 0) {
+      this.ctx.body = {
+        result: {
+          success: false,
+          msg: "phone or password invalid"
+        }
+      };
+      return;
+    }
     //2.如果存在,将token更新到redis缓存
     var token = app.jwt.sign({ data }, this.config.jwt.secret, {
       expiresIn: this.config.expired || 60 * 60
     });
     var _token = "Bearer " + token;
-    if(data.phone){
+    if (data.phone) {
       await this.ctx.service.cache.setToken("userId_" + data.phone, _token);
     }
 
     this.ctx.body = {
       result: {
         success: true,
-        token: _token
+        msg: _token
       }
     };
   }
