@@ -32,7 +32,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + "_1575595639228_3866";
 
   // add your middleware config here
-  // config.middleware = ["auth"];
+  config.middleware = ["auth"];
 
   // add your user config here
   const userConfig = {
@@ -51,7 +51,7 @@ module.exports = appInfo => {
     allowMethods: "GET,PUT,POST,DELETE"
   };
 
-  config.expired = 60;
+  config.expired = 60 * 5;
 
   exports.jwt = {
     secret: "123456"
