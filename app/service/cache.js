@@ -6,14 +6,14 @@ class CacheService extends Service {
   async set(key, value) {
     if (this.app.redis) {
       value = JSON.stringify(value);
-      this.app.redis.set(key, value);
+      this.app.redis.set(key, value, "EX", this.config.REDIS_EX_NORMAL);
     }
   }
 
-  async setToken(key,value){
-    if(this.app.redis){
-      value=JSON.stringify(value);
-      this.app.redis.set(key,value);
+  async setToken(key, value) {
+    if (this.app.redis) {
+      value = JSON.stringify(value);
+      this.app.redis.set(key, value, "EX", this.config.REDIS_EX_TOKEN);
     }
   }
 

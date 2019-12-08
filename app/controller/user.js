@@ -37,7 +37,6 @@ class UserController extends Controller {
       result: {
         success: true,
         msg: "/v1/app",
-        pc: this.ctx.session.phone_code
       }
     };
   }
@@ -131,7 +130,9 @@ class UserController extends Controller {
       expiresIn: this.config.expired || 60 * 60
     });
     var _token = "Bearer " + token;
-    await this.ctx.service.cache.setToken("userId_" + data.phone, _token);
+    if(data.phone){
+      await this.ctx.service.cache.setToken("userId_" + data.phone, _token);
+    }
 
     this.ctx.body = {
       result: {

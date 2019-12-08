@@ -19,7 +19,7 @@ module.exports = appInfo => {
       hostname: "0.0.0.0"
     }
   };
-  
+
   // config.session = {
   //   key: "SESSION_ID",
   //   maxAge: 864000 * 1000, //一天
@@ -32,7 +32,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + "_1575595639228_3866";
 
   // add your middleware config here
-  config.middleware = ["auth"];
+  // config.middleware = ["auth"];
 
   // add your user config here
   const userConfig = {
@@ -74,7 +74,8 @@ module.exports = appInfo => {
   };
 
   //一般缓存，不包括token
-  // config.REDIS_EX = 600 * 60;
+  config.REDIS_EX_NORMAL = 60 * 60 * 2;
+  config.REDIS_EX_TOKEN = 60 * 60 * 24 * 7;
 
   return {
     ...config,
