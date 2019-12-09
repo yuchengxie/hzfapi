@@ -36,7 +36,7 @@ class UserController extends Controller {
     this.ctx.body = {
       result: {
         success: true,
-        msg: "/v1/app"
+        msg: "/v1"
       }
     };
   }

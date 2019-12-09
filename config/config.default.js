@@ -32,7 +32,8 @@ module.exports = appInfo => {
   config.keys = appInfo.name + "_1575595639228_3866";
 
   // add your middleware config here
-  config.middleware = ["auth"];
+  // config.middleware = ["auth"];
+  config.middleware = [];
 
   // add your user config here
   const userConfig = {
@@ -50,8 +51,6 @@ module.exports = appInfo => {
     origin: "*",
     allowMethods: "GET,PUT,POST,DELETE"
   };
-
-  config.expired = 60 * 5;
 
   exports.jwt = {
     secret: "123456"
@@ -73,10 +72,12 @@ module.exports = appInfo => {
     }
   };
 
-  //一般缓存，不包括token
-  config.REDIS_EX_NORMAL = 60 * 60 * 2;
-  config.REDIS_EX_TOKEN = 60 * 60 * 24 * 7;
-
+  //用户登陆token过期设置
+  config.expired = 60 * 60 * 24;
+  //redis缓存过期设置
+  config.REDIS_EX_NORMAL =60 * 60 * 24 ;//1 day
+  config.REDIS_EX_TOKEN = 60 * 60 * 24 * 7;//7 day
+  
   return {
     ...config,
     ...userConfig

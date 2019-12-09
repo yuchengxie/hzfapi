@@ -9,6 +9,8 @@
 
 module.exports = app => {
   const { router, controller } = app;
+
+  var authMiddleware = app.middleware.auth({},app);
   
   //user
   router.get('/v1', controller.user.index);
@@ -17,6 +19,6 @@ module.exports = app => {
   router.post('/v1/user/login',controller.user.login);
   router.post('/v1/user/logout',controller.user.logout);
   //focus
-  router.get('/v1/focus',controller.focus.list);
+  router.get('/v1/focus',authMiddleware,controller.focus.list);
   router.get('/v1/goodsCate',controller.goodsCate.list);
 };

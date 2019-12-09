@@ -25,7 +25,7 @@ class GoodsCateController extends Controller {
             cate_img: 1,
             title: 1,
             sort: 1,
-            items: { cate_img: 1, title: 1, sort: 1 }
+            items: { _id: 1, cate_img: 1, title: 1, sort: 1 }
           }
         }
       ]).sort({ sort: 1 });
@@ -46,7 +46,7 @@ class GoodsCateController extends Controller {
           }
         }
       }
-      await this.ctx.service.cache.set('goodsCate_list',goodsCate_list);
+      await this.ctx.service.cache.set("goodsCate_list", goodsCate_list);
     }
 
     this.ctx.body = {
