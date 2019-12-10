@@ -7,7 +7,6 @@ class FocusController extends Controller {
     var focus_list=await this.ctx.service.cache.get('focus_list');
     console.log('focus_list:',focus_list);
     if(!focus_list){
-      console.log('hahah');
       focus_list = await this.ctx.model.Focus.find({}, "focus_img title sort").sort({sort:1});
       for (var i = 0; i < focus_list.length; i++) {
         if(focus_list[i].focus_img){
