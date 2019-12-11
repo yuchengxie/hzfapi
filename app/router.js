@@ -19,7 +19,7 @@ module.exports = app => {
   router.post('/v1/user/login',controller.user.login);
   router.post('/v1/user/logout',controller.user.logout);
   //focus
-  router.get('/v1/focus',authMiddleware,controller.focus.list);
+  router.get('/v1/focus',controller.focus.list);
   router.get('/v1/goodsCate',controller.goodsCate.list);
   router.get('/v1/goods',controller.goods.list);
   router.get('/v1/goods/detail',controller.goods.detail);
