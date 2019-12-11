@@ -30,22 +30,22 @@ class GoodsCateController extends Controller {
         }
       ]).sort({ sort: 1 });
 
-      for (var i = 0; i < goodsCate_list.length; i++) {
-        if (goodsCate_list[i].cate_img) {
-          goodsCate_list[i].cate_img = this.service.tools.convertImagePath(
-            goodsCate_list[i].cate_img
-          );
-        }
-        for (var j = 0; j < goodsCate_list[i].items.length; j++) {
-          if (goodsCate_list[i].items[j].cate_img) {
-            goodsCate_list[i].items[
-              j
-            ].cate_img = this.service.tools.convertImagePath(
-              goodsCate_list[i].items[j].cate_img
-            );
-          }
-        }
-      }
+      // for (var i = 0; i < goodsCate_list.length; i++) {
+      //   if (goodsCate_list[i].cate_img) {
+      //     goodsCate_list[i].cate_img = this.service.tools.convertImagePath(
+      //       goodsCate_list[i].cate_img
+      //     );
+      //   }
+      //   for (var j = 0; j < goodsCate_list[i].items.length; j++) {
+      //     if (goodsCate_list[i].items[j].cate_img) {
+      //       goodsCate_list[i].items[
+      //         j
+      //       ].cate_img = this.service.tools.convertImagePath(
+      //         goodsCate_list[i].items[j].cate_img
+      //       );
+      //     }
+      //   }
+      // }
       await this.ctx.service.cache.set("goodsCate_list", goodsCate_list);
     }
 
