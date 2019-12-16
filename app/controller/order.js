@@ -22,8 +22,8 @@ class OrderController extends Controller {
     };
   }
 
-  async notify(){
-    
+  async notify() {
+    console.log('back:', this.ctx.request.body);
   }
 }
 

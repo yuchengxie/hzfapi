@@ -15,7 +15,7 @@ module.exports = appInfo => {
   config.cluster = {
     listen: {
       path: "",
-      port: 80,
+      port: 8000,
       hostname: "0.0.0.0"
     }
   };
@@ -25,7 +25,7 @@ module.exports = appInfo => {
     mchid: '1527353211',
     partnerKey: 'simplesimplesimplesimplesimple22',
     // pfx: require('fs').readFileSync('证书文件路径'),
-    notify_url: '/notify',
+    notify_url: 'http://hzf.nb-chain.net:8000/v1/order/notify',
     spbill_create_ip: '',
   };
 
