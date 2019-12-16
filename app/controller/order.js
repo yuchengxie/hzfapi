@@ -8,6 +8,7 @@ class OrderController extends Controller {
     const api = new tenpay(this.config.WXPayConfig);
     const total_fee = this.ctx.request.body.total_fee;
     var out_trade_no = await this.service.tools.gen32RandomOrder('', '');
+    console.log('out_trade_no length:',out_trade_no.length);
     const sendData = {
       out_trade_no: out_trade_no,
       body: '商品简单描述',
