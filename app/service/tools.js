@@ -31,7 +31,7 @@ class ToolsService extends Service {
     return crypto.createHash('md5').update(text).digest('hex');
   }
 
-  gen32RandomOrder(time, data) { // 时间 13 标识 15 位  随机 4位数
+  async gen32RandomOrder(time, data) { // 时间 13 标识 15 位  随机 4位数
     var g, o, h;
     g = this._md5(data).substr(16, 32);
     o = this.randomlogn(g);
