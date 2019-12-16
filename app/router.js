@@ -23,5 +23,8 @@ module.exports = app => {
   router.get('/v1/goodsCate',controller.goodsCate.list);
   router.get('/v1/goods',controller.goods.list);
   router.get('/v1/goods/detail',controller.goods.detail);
+  //order
+  router.post('/v1/order/wxpay',controller.order.wxpay);
+  router.post('/v1/order/notify',controller.order.notify);
 };
 

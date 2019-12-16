@@ -20,7 +20,7 @@ class GoodsController extends Controller {
       return;
     }
     // var goods=await this.ctx.model.Goods.find({"cate_id":cate_id});
-    var json = { cate_id: cate_id };
+    let json = { cate_id: cate_id };
     // var totalNum=await this.ctx.model.Goods.find(json).count();
     // var totalPages
     let goods = await this.ctx.model.Goods.find(json)
@@ -34,7 +34,6 @@ class GoodsController extends Controller {
     //     );
     //   }
     // }
-    
 
     this.ctx.body = {
       result: {

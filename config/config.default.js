@@ -20,6 +20,15 @@ module.exports = appInfo => {
     }
   };
 
+  config.WXPayConfig = {
+    appid: 'wx3ca875a07dae8a2e',
+    mchid: '1527353211',
+    partnerKey: 'simplesimplesimplesimplesimple22',
+    // pfx: require('fs').readFileSync('证书文件路径'),
+    notify_url: '/notify',
+    spbill_create_ip: '',
+  };
+
   // config.session = {
   //   key: "SESSION_ID",
   //   maxAge: 864000 * 1000, //一天
