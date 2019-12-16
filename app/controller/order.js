@@ -14,6 +14,7 @@ class OrderController extends Controller {
       total_fee,
     };
     const result = await api.getAppParams(sendData);
+    console.log('result:',result);
     this.ctx.body = {
       result: {
         success: true,
