@@ -1,6 +1,7 @@
 'use strict';
 const tenpay = require('tenpay');
 const Controller = require('egg').Controller;
+const xml2js = require('xml2js').parseString;
 
 class OrderController extends Controller {
   async wxpay() {
@@ -14,7 +15,7 @@ class OrderController extends Controller {
       total_fee,
     };
     const result = await api.getAppParams(sendData);
-    console.log('result:',result);
+    console.log('result:', result);
     this.ctx.body = {
       result: {
         success: true,
@@ -24,7 +25,40 @@ class OrderController extends Controller {
   }
 
   async notify() {
-    console.log('back:', this.ctx.request.body);
+    // console.log('back:', this.ctx.request.body);
+    // this.ctx.body={
+    //   result:{
+    //     msg:this.ctx.request.body || 'no callback data'
+    //   }
+    // }
+    // let that = this;
+    // let data = '';
+    // this.ctx.req.on('data', function (chunk) {
+    //   data += chunk;
+    // });
+
+    // this.ctx.req.on('end', function () {
+    //   xml2js(data, {
+    //     explicitArray: false
+    //   }, function (err, json) {
+    //     console.log(json); //这里的json便是xml转为json的内容
+
+    //     var mySign = that.service.weixinpay.weixinpayNotify(json.xml);
+
+
+
+    //     console.log(mySign);
+
+    //     console.log('-------------');
+
+
+    //     console.log(json.xml.sign);
+
+
+    //   });
+
+    // });
+    this.ctx.body = '111';
   }
 }
 

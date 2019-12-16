@@ -17,7 +17,8 @@
     "egg-scripts": "^2.11.0",
     "md5": "^2.2.1",
     "request": "^2.88.0",
-    "tenpay": "^2.1.18"
+    "tenpay": "^2.1.18",
+    "xml2js": "^0.4.22"
   },
   "devDependencies": {
     "autod": "^3.0.1",
@@ -32,9 +33,9 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "start": "egg-scripts start --daemon --title=egg-server-hzfapi --port 8000",
+    "start": "egg-scripts start --daemon --title=egg-server-hzfapi --port 80",
     "stop": "egg-scripts stop --title=egg-server-hzfapi",
-    "dev": "egg-bin dev --port 8000",
+    "dev": "egg-bin dev --port 80",
     "debug": "egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "egg-bin test",
