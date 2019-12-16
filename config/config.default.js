@@ -12,13 +12,13 @@ module.exports = appInfo => {
    **/
   const config = (exports = {});
 
-  config.cluster = {
-    listen: {
-      path: "",
-      port: 8000,
-      hostname: "0.0.0.0"
-    }
-  };
+  // config.cluster = {
+  //   listen: {
+  //     path: "",
+  //     port: 8000,
+  //     hostname: "0.0.0.0"
+  //   }
+  // };
 
   config.WXPayConfig = {
     appid: 'wx3ca875a07dae8a2e',
