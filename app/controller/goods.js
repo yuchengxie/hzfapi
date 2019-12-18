@@ -20,7 +20,9 @@ class GoodsController extends Controller {
       return;
     }
     // var goods=await this.ctx.model.Goods.find({"cate_id":cate_id});
-    let json = { cate_id: cate_id };
+    let json = {
+      cate_id: cate_id
+    };
     // var totalNum=await this.ctx.model.Goods.find(json).count();
     // var totalPages
     let goods = await this.ctx.model.Goods.find(json)
@@ -43,7 +45,7 @@ class GoodsController extends Controller {
     };
   }
 
-  async detail() {
+  async info() {
     var id = this.ctx.request.query.id;
     if (!id) {
       this.ctx.body = {
@@ -55,18 +57,65 @@ class GoodsController extends Controller {
       return;
     }
     try {
-      let goods_detail = await this.ctx.model.Goods.find({
+      //1、获取商品信息
+      let productInfo = await this.ctx.model.Goods.find({
         _id: this.app.mongoose.Types.ObjectId(id)
       });
-      // if (goods_detail[0].goods_img) {
-      //   goods_detail[0].goods_img = this.service.tools.convertImagePath(
-      //     goods_detail[0].goods_img
-      //   );
-      // }
+      var goodsColorIds = this.ctx.service.goods.strToArray(productInfo[0].goods_color);
+
+      //2、关联商品
+      var relationGoodsIds = this.ctx.service.goods.strToArray(
+        productInfo[0].relation_goods
+      );
+
+      var goodsRelation = await this.ctx.model.Goods.find({
+          $or: relationGoodsIds
+        },
+        "title goods_version shop_price"
+      );
+
+      //3、获取关联颜色
+      var goodsColor = await this.ctx.model.GoodsColor.find({
+        $or: goodsColorIds
+      });
+
+      //4、关联赠品
+      var goodsGiftIds = this.ctx.service.goods.strToArray(
+        productInfo[0].goods_gift
+      );
+      var goodsGift = await this.ctx.model.Goods.find({
+        $or: goodsGiftIds
+      });
+      //5、关联配件
+      var goodsFittingIds = this.ctx.service.goods.strToArray(
+        productInfo[0].goods_fitting
+      );
+      var goodsFitting = await this.ctx.model.Goods.find({
+        $or: goodsFittingIds
+      });
+      //6、当前商品关联的图片
+      var goodsImageResult = await this.ctx.model.GoodsImage.find({
+        "goods_id": id
+      }).limit(8);
+      //7、获取规格参数信息
+      var goodsAttr = await this.ctx.model.GoodsAttr.find({
+        "goods_id": id
+      });
+
+
+
       this.ctx.body = {
         result: {
           success: true,
-          msg: goods_detail
+          msg: {
+            productInfo: productInfo[0],
+            goodsRelation: goodsRelation,
+            goodsColor: goodsColor,
+            goodsGift: goodsGift,
+            goodsFitting: goodsFitting,
+            goodsImageResult: goodsImageResult,
+            goodsAttr:goodsAttr
+          }
         }
       };
     } catch (error) {
