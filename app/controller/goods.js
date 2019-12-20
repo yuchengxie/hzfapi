@@ -78,7 +78,6 @@ class GoodsController extends Controller {
       var goodsColor = await this.ctx.model.GoodsColor.find({
         $or: goodsColorIds
       });
-
       //4、关联赠品
       var goodsGiftIds = this.ctx.service.goods.strToArray(
         productInfo[0].goods_gift
@@ -101,8 +100,6 @@ class GoodsController extends Controller {
       var goodsAttr = await this.ctx.model.GoodsAttr.find({
         "goods_id": id
       });
-
-
 
       this.ctx.body = {
         result: {
