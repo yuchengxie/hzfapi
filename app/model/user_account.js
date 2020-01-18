@@ -3,7 +3,7 @@ module.exports = app => {
   const Schema = mongoose.Schema;
 
   var d = new Date();
-  const User = new Schema({
+  const UserAccount = new Schema({
 
     /*
       ip:ip,
@@ -13,6 +13,7 @@ module.exports = app => {
             last_ip:last_ip,
             status:status      
     */
+
     phone: {
       type: Number
     },
@@ -22,21 +23,10 @@ module.exports = app => {
     blockchain_account: {
       type: String
     },
-    last_ip: {
-      type: String
-    },
     add_time: {
       type: Number,
       default: d.getTime()
     },
-    email: {
-      type: String
-    },
-    status: {
-      type: Number,
-      default: 1
-    }
   });
-
-  return mongoose.model('User', User, 'user');
+  return mongoose.model('UserAccount', UserAccount, 'user_account');
 }

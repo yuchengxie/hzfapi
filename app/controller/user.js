@@ -54,7 +54,8 @@ class UserController extends Controller {
     let data = this.ctx.request.body,
       phone = data.phone,
       password = data.password,
-      phone_code = data.phone_code;
+      phone_code = data.phone_code,
+      blockchain_account = data.blockchain_account;
     if (
       !phone ||
       !password ||
@@ -71,7 +72,7 @@ class UserController extends Controller {
       };
       return;
     }
-    data.password=await this.service.tools.md5(data.password);
+    data.password = await this.service.tools.md5(data.password);
     console.log(data);
     //1.checkout phone code
     if (phone_code != this.ctx.session.phone_code) {
@@ -83,7 +84,9 @@ class UserController extends Controller {
       };
       return;
     }
-    let res = await this.ctx.model.User.find({ phone: phone });
+    let res = await this.ctx.model.User.find({
+      phone: phone
+    });
     if (res && res.length > 0) {
       this.ctx.body = {
         result: {
@@ -95,7 +98,8 @@ class UserController extends Controller {
     }
     let user = new this.ctx.model.User({
       phone,
-      password: this.service.tools.md5(password)
+      password: this.service.tools.md5(password),
+      blockchain_account
     });
     console.log("ready register:", user);
 
@@ -122,7 +126,9 @@ class UserController extends Controller {
   }
 
   async login() {
-    const { app } = this;
+    const {
+      app
+    } = this;
     var data = this.ctx.request.body;
     var phone = data.phone;
     var password = await this.service.tools.md5(data.password);
@@ -141,7 +147,7 @@ class UserController extends Controller {
       phone: phone,
       password: password
     });
-    console.log('user:',user);
+    console.log('user:', user);
     if (user.length <= 0) {
       this.ctx.body = {
         result: {
@@ -152,7 +158,9 @@ class UserController extends Controller {
       return;
     }
     //2.如果存在,将token更新到redis缓存
-    var token = app.jwt.sign({ data }, this.config.jwt.secret, {
+    var token = app.jwt.sign({
+      data
+    }, this.config.jwt.secret, {
       expiresIn: this.config.expired || 60 * 60
     });
     var _token = "Bearer " + token;

@@ -76,7 +76,7 @@ module.exports = appInfo => {
 
   exports.mongoose = {
     client: {
-      url: "mongodb://admin:qwerty123@118.190.105.235:27017/hzfds",
+      url: "mongodb://admin:qwerty123@118.190.105.235:27017/hzfds_admin",
       options: {}
     }
   };
