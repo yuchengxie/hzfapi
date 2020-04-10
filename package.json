@@ -16,6 +16,7 @@
     "egg-redis": "^2.4.0",
     "egg-scripts": "^2.11.0",
     "md5": "^2.2.1",
+    "node-uuid": "^1.4.8",
     "request": "^2.88.0",
     "tenpay": "^2.1.18",
     "uuid": "^3.3.3",
@@ -34,9 +35,9 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "start": "egg-scripts start --daemon --title=egg-server-hzfapi --port 8000",
+    "start": "egg-scripts start --daemon --title=egg-server-hzfapi --port 8002",
     "stop": "egg-scripts stop --title=egg-server-hzfapi",
-    "dev": "egg-bin dev --port 8000",
+    "dev": "egg-bin dev --port 8002",
     "debug": "egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "egg-bin test",

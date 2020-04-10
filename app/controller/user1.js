@@ -4,10 +4,8 @@ const Controller = require("egg").Controller;
 
 class UserController extends Controller {
   async sendPhoneCode() {
-    console.log('==========sendPhoneCode');
     let data = this.ctx.request.body,
       phone = data.phone;
-    console.log('data:', data);
     if (!phone || !this.service.regular.checkPhone(phone)) {
       this.ctx.body = {
         result: {
@@ -32,9 +30,6 @@ class UserController extends Controller {
         msg: r ? r : "err"
       }
     };
-    this.ctx.body = {
-      msg: 'sendPhoneCode'
-    };
   }
 
   async index() {
@@ -50,51 +45,36 @@ class UserController extends Controller {
     this.ctx.body = {
       result: {
         success: true,
-        msg: "hello v1"
+        msg: "hello"
       }
     };
   }
 
   async register() {
-    let fields = this.ctx.request.body, phone, password, phone_code;
-    console.log('register:', fields);
-    if (fields) {
-      phone = fields.phone;
-      password = fields.password;
-      phone_code = fields.phone_code;
-    }
-    if (!phone || !this.service.regular.checkPhone(phone)) {
+    let data = this.ctx.request.body,
+      phone = data.phone,
+      password = data.password,
+      phone_code = data.phone_code,
+      blockchain_account = data.blockchain_account;
+    if (
+      !phone ||
+      !password ||
+      !phone_code ||
+      !this.service.regular.checkPhone(phone) ||
+      !this.service.regular.checkPasswd(password) ||
+      !this.service.regular.checkPhoneCode(phone_code)
+    ) {
       this.ctx.body = {
         result: {
           success: false,
-          msg: "phone invalid"
+          msg: "args invalid"
         }
-      }
+      };
       return;
     }
-
-    if (!phone_code || !this.service.regular.checkPhoneCode(phone_code)) {
-      this.ctx.body = {
-        result: {
-          success: false,
-          msg: "phone code invalid"
-        }
-      }
-      return;
-    }
-
-    if (!password || !this.service.regular.checkPasswd(password)) {
-      this.ctx.body = {
-        result: {
-          success: false,
-          msg: "password invalid"
-        }
-      }
-      return;
-    }
-
-    fields.password = await this.service.tools.md5(fields.password);
-
+    data.password = await this.service.tools.md5(data.password);
+    console.log(data);
+    //1.checkout phone code
     if (phone_code != this.ctx.session.phone_code) {
       this.ctx.body = {
         result: {
@@ -104,11 +84,9 @@ class UserController extends Controller {
       };
       return;
     }
-
     let res = await this.ctx.model.User.find({
       phone: phone
     });
-
     if (res && res.length > 0) {
       this.ctx.body = {
         result: {
@@ -118,29 +96,14 @@ class UserController extends Controller {
       };
       return;
     }
-
-    //send
-    
-
     let user = new this.ctx.model.User({
       phone,
-      password: await this.service.tools.md5(password),
+      password: this.service.tools.md5(password),
+      blockchain_account
     });
+    console.log("ready register:", user);
 
-    let u = await user.save();
-    if(u){
-      u.unionId = u._id;
-      await this.ctx.model.User.updateOne({_id:u._id},{unionId:u.unionId});
-    }
-
-    //
-    let addAccount = {
-      balance: 1000,
-      unionId: u.unionId,
-    }
-    let Account = new this.ctx.model.Account(addAccount);
-    await Account.save()
-    
+    await user.save();
     this.ctx.body = {
       result: {
         success: true,
@@ -204,7 +167,8 @@ class UserController extends Controller {
     if (data.phone) {
       await this.ctx.service.cache.setToken("userId_" + data.phone, _token);
     }
-
+    //access_token
+    // 'v1/xx/userId_1882232323232=asdfasdfasdfasdfsadfsdfasdf'
     this.ctx.body = {
       result: {
         success: true,

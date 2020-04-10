@@ -17,14 +17,14 @@ module.exports = app => {
   router.post('/v1/user/sendPhoneCode',controller.user.sendPhoneCode);
   router.post('/v1/user/register',controller.user.register);
   router.post('/v1/user/login',controller.user.login);
-  router.post('/v1/user/logout',controller.user.logout);
-  //focus
-  router.get('/v1/focus',controller.focus.list);
-  router.get('/v1/goodsCate',controller.goodsCate.list);
-  router.get('/v1/goods',controller.goods.list);
-  router.get('/v1/goods/info',controller.goods.info);
-  //order
-  router.post('/v1/order/wxpay',controller.order.wxpay);
-  router.post('/v1/order/notify',controller.order.notify);
+  // router.post('/v1/user/logout',controller.user.logout);
+  // //focus
+  // router.get('/v1/focus',controller.focus.list);
+  // router.get('/v1/goodsCate',controller.goodsCate.list);
+  // router.get('/v1/goods',controller.goods.list);
+  // router.get('/v1/goods/info',controller.goods.info);
+  // //order
+  // router.post('/v1/order/wxpay',controller.order.wxpay);
+  // router.post('/v1/order/notify',controller.order.notify);
 };
 
