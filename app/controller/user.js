@@ -92,6 +92,8 @@ class UserController extends Controller {
     });
 
     let u = await user.save();
+
+    console.log('u:',u);
     if (u) {
       u.unionId = u._id;
       await this.ctx.model.User.updateOne({ _id: u._id }, { unionId: u.unionId });
