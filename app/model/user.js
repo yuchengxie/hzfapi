@@ -5,37 +5,40 @@
  */
 
 module.exports = app => {
-  const mongoose = app.mongoose; 
+  const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
   var d = new Date();
   const UserSchema = new Schema({
     nickName: {
       type: String,
-    }, 
+    },
     password: {
       type: String
-    }, 
+    },
     avatarUrl: {
       type: String
-    }, 
+    },
     unionId: {
       type: String
-    }, 
+    },
+
+    balance: { type: String },
+
     openId: {
       type: String
-    }, 
+    },
     gender: {
       type: String
-    }, 
+    },
     city: {
       type: String
-    }, 
+    },
     province: {
       type: String
-    }, 
+    },
     country: {
       type: String
-    }, 
+    },
     type_from: {
       type: Number,
       default: 1 //1 app  2 小程序 

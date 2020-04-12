@@ -26,7 +26,7 @@ class AccountController extends BaseController {
         "unionId":unionId
       }
    } ])
-    // console.log("1111111", res)
+    console.log("account", res)
     this.success(res)
   }
 

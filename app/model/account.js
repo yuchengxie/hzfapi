@@ -16,6 +16,6 @@ module.exports = app => {
           default: d.getTime()
       },
   })
-
+  
   return mongoose.model('Account', AccountSchema, 'account');
 }
