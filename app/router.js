@@ -20,6 +20,10 @@ module.exports = app => {
   router.post('/v1/user/register',controller.user.register);
   router.post('/v1/user/login',controller.user.login);
 
+  //行情
+  router.get('/v1/market/index', controller.app.market.index);
+  router.post('/v1/market/bk', controller.app.market.bk);
+
   // router.get('/v1',controller.user.index);
   // router.post('/v1/login', controller.app.login.login);
   // router.post('/v1/user/register', controller.app.login.register);
