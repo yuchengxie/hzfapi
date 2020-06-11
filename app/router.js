@@ -71,5 +71,11 @@ module.exports = app => {
   router.post('/v1/sell/cancel', controller.sell.cancel);
   router.post('/v1/sell/good', controller.sell.good);
   router.post('/v1/query/trace', controller.query.trace);
+
+  //物流查询
+  router.get('/v1/express/co', controller.express.co);
+  router.get('/v1express/num', controller.express.num);
+  router.get('/v1/express/trace', controller.express.trace);
+
 };
 

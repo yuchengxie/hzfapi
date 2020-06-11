@@ -370,6 +370,7 @@ class UserController extends BaseController {
       return;
     }
 
+
     if (!phone_code || !this.service.regular.checkPhoneCode(phone_code)) {
       this.ctx.body = {
         result: {
@@ -379,6 +380,7 @@ class UserController extends BaseController {
       }
       return;
     }
+
 
     if (!password || !this.service.regular.checkPasswd(password)) {
       this.ctx.body = {
@@ -391,6 +393,10 @@ class UserController extends BaseController {
     }
 
     fields.password = await this.service.tools.md5(fields.password);
+
+
+    console.log('phone_code:',phone_code);
+    console.log('this.ctx.session.phone_code:',this.ctx.session.phone_code);
 
     if (phone_code != this.ctx.session.phone_code) {
       this.ctx.body = {
@@ -477,6 +483,7 @@ class UserController extends BaseController {
     var r = await this.service.message.sendPhoneVerifyCode(phone);
 
     var success = false;
+    //
     if (r.code && r.code == "000000") {
       success = true;
       this.ctx.session.phone_code = r.phone_code;

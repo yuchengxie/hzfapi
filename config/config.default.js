@@ -74,6 +74,10 @@ module.exports = appInfo => {
     }
   };
 
+  config.express = {
+    appCode: 'APPCODE 99a7ec151fe248f995582d2420e9a298'
+  }
+
   exports.mongoose = {
     client: {
       url: "mongodb://admin:qwerty123@118.190.105.235:27017/hzfds_admin",
